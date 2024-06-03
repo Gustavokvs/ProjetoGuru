@@ -47,6 +47,7 @@ public class SignosGabrielEGustavoNoite extends javax.swing.JFrame {
         lbPeixes.setVisible(false);
 
     }
+    //Calculano signos
 
     public String calcularSigno(int dia, int mes, int ano) {
 
