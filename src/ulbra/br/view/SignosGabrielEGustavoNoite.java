@@ -446,7 +446,6 @@ public class SignosGabrielEGustavoNoite extends javax.swing.JFrame {
             dia = Integer.parseInt(txtDia.getText());
             mes = Integer.parseInt(txtMes.getText());
             ano = Integer.parseInt(txtAno.getText());
-            JOptionPane.showMessageDialog(null, dAtual + "/" + mAtual);
 
             if (mes >= 1 && mes <= 12 && ano >= 1900 && ano <= aAtual) {
                 if (dia > dAtual && mes >= mAtual && ano >= aAtual) {
