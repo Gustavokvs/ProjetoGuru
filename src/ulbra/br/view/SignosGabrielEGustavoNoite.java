@@ -116,7 +116,7 @@ public class SignosGabrielEGustavoNoite extends javax.swing.JFrame {
     }
 
     public String declararCorDaSorte(String cor) {
-        String corAleatoria[] = {"Azul", "Vermelho", "Amarelo", "Verde","Laranja","Marrom","Preto","Roxo","Rosa"};
+        String corAleatoria[] = {"Azul", "Vermelho", "Amarelo", "Verde", "Laranja", "Marrom", "Preto", "Roxo", "Rosa"};
         Random nCor = new Random();
         int i = nCor.nextInt(corAleatoria.length);
         String cores = corAleatoria[i];
@@ -135,13 +135,8 @@ public class SignosGabrielEGustavoNoite extends javax.swing.JFrame {
         mes = Integer.parseInt(txtMes.getText());
         ano = Integer.parseInt(txtAno.getText());
 
-        if (mes >= mesAtual) {
+        idade = ((anoAtual * 365 + mesAtual * 12 + diaAtual) - (ano * 365 + mes * 12 + dia)) / 365;
 
-            idade = (anoAtual - ano - 1);
-        } else {
-
-            idade = anoAtual - ano;
-        }
         return idade;
     }
 
@@ -442,229 +437,241 @@ public class SignosGabrielEGustavoNoite extends javax.swing.JFrame {
         if (txtNome.getText().isEmpty() || txtDia.getText().isEmpty() || txtMes.getText().isEmpty() || txtAno.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Muito engraçado, agora preenche os campos vai.");
         } else {
+            LocalDate agr = LocalDate.now();
+            int dAtual, mAtual, aAtual;
+            dAtual = agr.getDayOfMonth();
+            mAtual = agr.getMonthValue();
+            aAtual = agr.getYear();
+
             dia = Integer.parseInt(txtDia.getText());
             mes = Integer.parseInt(txtMes.getText());
             ano = Integer.parseInt(txtAno.getText());
+            JOptionPane.showMessageDialog(null, dAtual + "/" + mAtual);
 
-            if (mes >= 1 && mes <= 12 && ano >= 1900 && ano <= 2024) {
-                if ((mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) && dia >= 1 && dia <= 31) {
-                    nome = txtNome.getText();
-                    if (nome.length() < 8 || nome.equals("Insira seu nome e sobrenome")) {
-                        JOptionPane.showMessageDialog(null, "Legal, se seu nome fosse verdadeiro.");
-                    } else {
-                        cor = declararCorDaSorte(cor);
-                        signo = calcularSigno(dia, mes, ano);
-
-                        if (rbMasc.isSelected()) {
-                            lbResumo.setText(fazerTratamento(nome) + " " + nome + " nascido no dia de " + dia + "/" + mes + "/" + ano);
-                            lbResumo1.setText("É do signo de " + signo + " tem " + d.format((calcularIdade(dia, mes, ano))) + " anos");
-                            lbResumo2.setText("Seu número da sorte é: " + entregarNumeroSorte(100));
-                            lbResumo3.setText("Sua cor da sorte é: " + cor);
-                        } else {
-                            lbResumo.setText(fazerTratamento(nome) + " " + nome + " nascida no dia de " + dia + "/" + mes + "/" + ano);
-                            lbResumo1.setText("É do signo de " + signo + " tem " + d.format((calcularIdade(dia, mes, ano))) + " anos");
-                            lbResumo2.setText("Seu número da sorte é: " + entregarNumeroSorte(100));
-                            lbResumo3.setText("Sua cor da sorte é: " + cor);
-                        }
-
-                        // Definindo os ícones de cada signo.
-                        lbSagitario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif sagita resized.gif")));
-                        lbAries.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/gif Aries.gif")));
-                        lbTouro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif touro.gif")));
-                        lbCancer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/gif Cancer.gif")));
-                        lbGemeos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif gemeos.gif")));
-                        lbLeao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif leo.gif")));
-                        lbVirgem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/gif Virgo.gif")));
-                        lbLibra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif libra.gif")));
-                        lbEscorpiao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Scorpio.gif")));
-                        lbCapricornio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Capricornio.gif")));
-                        lbAquario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Aquario.gif")));
-                        lbPeixes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Peixes.gif")));
-                        lbAries.setVisible(false);
-                        lbTouro.setVisible(false);
-                        lbGemeos.setVisible(false);
-                        lbCancer.setVisible(false);
-                        lbLeao.setVisible(false);
-                        lbVirgem.setVisible(false);
-                        lbLibra.setVisible(false);
-                        lbEscorpiao.setVisible(false);
-                        lbSagitario.setVisible(false);
-                        lbCapricornio.setVisible(false);
-                        lbAquario.setVisible(false);
-                        lbPeixes.setVisible(false);
-
-                        if (signo.equals("Aries")) {
-                            lbAries.setVisible(true);
-                        } else if (signo.equals("Touro")) {
-                            lbTouro.setVisible(true);
-                        } else if (signo.equals("Gêmeos")) {
-                            lbGemeos.setVisible(true);
-                        } else if (signo.equals("Câncer")) {
-                            lbCancer.setVisible(true);
-                        } else if (signo.equals("Leão")) {
-                            lbLeao.setVisible(true);
-                        } else if (signo.equals("Virgem")) {
-                            lbVirgem.setVisible(true);
-                        } else if (signo.equals("Libra")) {
-                            lbLibra.setVisible(true);
-                        } else if (signo.equals("Escorpião")) {
-                            lbEscorpiao.setVisible(true);
-                        } else if (signo.equals("Sagitário")) {
-                            lbSagitario.setVisible(true);
-                        } else if (signo.equals("Capricórnio")) {
-                            lbCapricornio.setVisible(true);
-                        } else if (signo.equals("Aquário")) {
-                            lbAquario.setVisible(true);
-                        } else if (signo.equals("Peixes")) {
-                            lbPeixes.setVisible(true);
-                        }
-                    }
-                } else if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia >= 1 && dia <= 30) {
-                    nome = txtNome.getText();
-                    if (nome.length() < 8 || nome.equals("Insira seu nome e sobrenome")) {
-                        JOptionPane.showMessageDialog(null, "Legal, se seu nome fosse verdadeiro.");
-                    } else {
-                        cor = declararCorDaSorte(cor);
-                        signo = calcularSigno(dia, mes, ano);
-
-                        if (rbMasc.isSelected()) {
-                            lbResumo.setText(fazerTratamento(nome) + " " + nome + " nascido no dia de " + dia + "/" + mes + "/" + ano);
-                            lbResumo1.setText("É do signo de " + signo + " tem " + d.format((calcularIdade(dia, mes, ano))) + " anos");
-                            lbResumo2.setText("Seu número da sorte é: " + entregarNumeroSorte(100));
-                            lbResumo3.setText("Sua cor da sorte é: " + cor);
-                        } else {
-                            lbResumo.setText(fazerTratamento(nome) + " " + nome + " nascida no dia de " + dia + "/" + mes + "/" + ano);
-                            lbResumo1.setText("É do signo de " + signo + " tem " + d.format((calcularIdade(dia, mes, ano))) + " anos");
-                            lbResumo2.setText("Seu número da sorte é: " + entregarNumeroSorte(100));
-                            lbResumo3.setText("Sua cor da sorte é: " + cor);
-                        }
-
-                        // Definindo os ícones de cada signo.
-                        lbSagitario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif sagita resized.gif")));
-                        lbAries.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/gif Aries.gif")));
-                        lbTouro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif touro.gif")));
-                        lbCancer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/gif Cancer.gif")));
-                        lbGemeos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif gemeos.gif")));
-                        lbLeao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif leo.gif")));
-                        lbVirgem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/gif Virgo.gif")));
-                        lbLibra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif libra.gif")));
-                        lbEscorpiao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Scorpio.gif")));
-                        lbCapricornio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Capricornio.gif")));
-                        lbAquario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Aquario.gif")));
-                        lbPeixes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Peixes.gif")));
-                        lbAries.setVisible(false);
-                        lbTouro.setVisible(false);
-                        lbGemeos.setVisible(false);
-                        lbCancer.setVisible(false);
-                        lbLeao.setVisible(false);
-                        lbVirgem.setVisible(false);
-                        lbLibra.setVisible(false);
-                        lbEscorpiao.setVisible(false);
-                        lbSagitario.setVisible(false);
-                        lbCapricornio.setVisible(false);
-                        lbAquario.setVisible(false);
-                        lbPeixes.setVisible(false);
-
-                        if (signo.equals("Aries")) {
-                            lbAries.setVisible(true);
-                        } else if (signo.equals("Touro")) {
-                            lbTouro.setVisible(true);
-                        } else if (signo.equals("Gêmeos")) {
-                            lbGemeos.setVisible(true);
-                        } else if (signo.equals("Câncer")) {
-                            lbCancer.setVisible(true);
-                        } else if (signo.equals("Leão")) {
-                            lbLeao.setVisible(true);
-                        } else if (signo.equals("Virgem")) {
-                            lbVirgem.setVisible(true);
-                        } else if (signo.equals("Libra")) {
-                            lbLibra.setVisible(true);
-                        } else if (signo.equals("Escorpião")) {
-                            lbEscorpiao.setVisible(true);
-                        } else if (signo.equals("Sagitário")) {
-                            lbSagitario.setVisible(true);
-                        } else if (signo.equals("Capricórnio")) {
-                            lbCapricornio.setVisible(true);
-                        } else if (signo.equals("Aquário")) {
-                            lbAquario.setVisible(true);
-                        } else if (signo.equals("Peixes")) {
-                            lbPeixes.setVisible(true);
-                        }
-                    }
-                } else if (mes == 2 && dia >= 1 && dia <= 29) {
-                    nome = txtNome.getText();
-                    if (nome.length() < 8 || nome.equals("Insira seu nome e sobrenome")) {
-                        JOptionPane.showMessageDialog(null, "Legal, se seu nome fosse verdadeiro.");
-                    } else {
-                        cor = declararCorDaSorte(cor);
-                        signo = calcularSigno(dia, mes, ano);
-
-                        if (rbMasc.isSelected()) {
-                            lbResumo.setText(fazerTratamento(nome) + " " + nome + " nascido no dia de " + dia + "/" + mes + "/" + ano);
-                            lbResumo1.setText("É do signo de " + signo + " tem " + d.format((calcularIdade(dia, mes, ano))) + " anos");
-                            lbResumo2.setText("Seu número da sorte é: " + entregarNumeroSorte(100));
-                            lbResumo3.setText("Sua cor da sorte é: " + cor);
-                        } else {
-                            lbResumo.setText(fazerTratamento(nome) + " " + nome + " nascida no dia de " + dia + "/" + mes + "/" + ano);
-                            lbResumo1.setText("É do signo de " + signo + " tem " + d.format((calcularIdade(dia, mes, ano))) + " anos");
-                            lbResumo2.setText("Seu número da sorte é: " + entregarNumeroSorte(100));
-                            lbResumo3.setText("Sua cor da sorte é: " + cor);
-                        }
-
-                        // Definindo os ícones de cada signo.
-                        lbSagitario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif sagita resized.gif")));
-                        lbAries.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/gif Aries.gif")));
-                        lbTouro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif touro.gif")));
-                        lbCancer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/gif Cancer.gif")));
-                        lbGemeos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif gemeos.gif")));
-                        lbLeao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif leo.gif")));
-                        lbVirgem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/gif Virgo.gif")));
-                        lbLibra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif libra.gif")));
-                        lbEscorpiao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Scorpio.gif")));
-                        lbCapricornio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Capricornio.gif")));
-                        lbAquario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Aquario.gif")));
-                        lbPeixes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Peixes.gif")));
-                        lbAries.setVisible(false);
-                        lbTouro.setVisible(false);
-                        lbGemeos.setVisible(false);
-                        lbCancer.setVisible(false);
-                        lbLeao.setVisible(false);
-                        lbVirgem.setVisible(false);
-                        lbLibra.setVisible(false);
-                        lbEscorpiao.setVisible(false);
-                        lbSagitario.setVisible(false);
-                        lbCapricornio.setVisible(false);
-                        lbAquario.setVisible(false);
-                        lbPeixes.setVisible(false);
-
-                        if (signo.equals("Aries")) {
-                            lbAries.setVisible(true);
-                        } else if (signo.equals("Touro")) {
-                            lbTouro.setVisible(true);
-                        } else if (signo.equals("Gêmeos")) {
-                            lbGemeos.setVisible(true);
-                        } else if (signo.equals("Câncer")) {
-                            lbCancer.setVisible(true);
-                        } else if (signo.equals("Leão")) {
-                            lbLeao.setVisible(true);
-                        } else if (signo.equals("Virgem")) {
-                            lbVirgem.setVisible(true);
-                        } else if (signo.equals("Libra")) {
-                            lbLibra.setVisible(true);
-                        } else if (signo.equals("Escorpião")) {
-                            lbEscorpiao.setVisible(true);
-                        } else if (signo.equals("Sagitário")) {
-                            lbSagitario.setVisible(true);
-                        } else if (signo.equals("Capricórnio")) {
-                            lbCapricornio.setVisible(true);
-                        } else if (signo.equals("Aquário")) {
-                            lbAquario.setVisible(true);
-                        } else if (signo.equals("Peixes")) {
-                            lbPeixes.setVisible(true);
-                        }
-                    }
+            if (mes >= 1 && mes <= 12 && ano >= 1900 && ano <= aAtual) {
+                if (dia > dAtual && mes >= mAtual && ano >= aAtual) {
+                    JOptionPane.showMessageDialog(null, "COMO VC TÁ DIGITANDO SE VC NEM EXISTE?.");
                 } else {
-                    JOptionPane.showMessageDialog(null, "E essa data ai engraçadinho?");
+                    if ((mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) && dia >= 1 && dia <= 31) {
+                        nome = txtNome.getText();
+                        if (nome.length() < 8 || nome.equals("Insira seu nome e sobrenome")) {
+                            JOptionPane.showMessageDialog(null, "Legal, se seu nome fosse verdadeiro.");
+                        } else {
+
+                            cor = declararCorDaSorte(cor);
+                            signo = calcularSigno(dia, mes, ano);
+
+                            if (rbMasc.isSelected()) {
+                                lbResumo.setText(fazerTratamento(nome) + " " + nome + " nascido no dia de " + dia + "/" + mes + "/" + ano);
+                                lbResumo1.setText("É do signo de " + signo + " tem " + d.format((calcularIdade(dia, mes, ano))) + " anos");
+                                lbResumo2.setText("Seu número da sorte é: " + entregarNumeroSorte(100));
+                                lbResumo3.setText("Sua cor da sorte é: " + cor);
+                            } else {
+                                lbResumo.setText(fazerTratamento(nome) + " " + nome + " nascida no dia de " + dia + "/" + mes + "/" + ano);
+                                lbResumo1.setText("É do signo de " + signo + " tem " + d.format((calcularIdade(dia, mes, ano))) + " anos");
+                                lbResumo2.setText("Seu número da sorte é: " + entregarNumeroSorte(100));
+                                lbResumo3.setText("Sua cor da sorte é: " + cor);
+                            }
+
+                            // Definindo os ícones de cada signo.
+                            lbSagitario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif sagita resized.gif")));
+                            lbAries.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/gif Aries.gif")));
+                            lbTouro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif touro.gif")));
+                            lbCancer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/gif Cancer.gif")));
+                            lbGemeos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif gemeos.gif")));
+                            lbLeao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif leo.gif")));
+                            lbVirgem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/gif Virgo.gif")));
+                            lbLibra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif libra.gif")));
+                            lbEscorpiao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Scorpio.gif")));
+                            lbCapricornio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Capricornio.gif")));
+                            lbAquario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Aquario.gif")));
+                            lbPeixes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Peixes.gif")));
+                            lbAries.setVisible(false);
+                            lbTouro.setVisible(false);
+                            lbGemeos.setVisible(false);
+                            lbCancer.setVisible(false);
+                            lbLeao.setVisible(false);
+                            lbVirgem.setVisible(false);
+                            lbLibra.setVisible(false);
+                            lbEscorpiao.setVisible(false);
+                            lbSagitario.setVisible(false);
+                            lbCapricornio.setVisible(false);
+                            lbAquario.setVisible(false);
+                            lbPeixes.setVisible(false);
+
+                            if (signo.equals("Aries")) {
+                                lbAries.setVisible(true);
+                            } else if (signo.equals("Touro")) {
+                                lbTouro.setVisible(true);
+                            } else if (signo.equals("Gêmeos")) {
+                                lbGemeos.setVisible(true);
+                            } else if (signo.equals("Câncer")) {
+                                lbCancer.setVisible(true);
+                            } else if (signo.equals("Leão")) {
+                                lbLeao.setVisible(true);
+                            } else if (signo.equals("Virgem")) {
+                                lbVirgem.setVisible(true);
+                            } else if (signo.equals("Libra")) {
+                                lbLibra.setVisible(true);
+                            } else if (signo.equals("Escorpião")) {
+                                lbEscorpiao.setVisible(true);
+                            } else if (signo.equals("Sagitário")) {
+                                lbSagitario.setVisible(true);
+                            } else if (signo.equals("Capricórnio")) {
+                                lbCapricornio.setVisible(true);
+                            } else if (signo.equals("Aquário")) {
+                                lbAquario.setVisible(true);
+                            } else if (signo.equals("Peixes")) {
+                                lbPeixes.setVisible(true);
+                            }
+                        }
+                    } else if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia >= 1 && dia <= 30) {
+                        nome = txtNome.getText();
+                        if (nome.length() < 8 || nome.equals("Insira seu nome e sobrenome")) {
+                            JOptionPane.showMessageDialog(null, "Legal, se seu nome fosse verdadeiro.");
+                        } else {
+                            cor = declararCorDaSorte(cor);
+                            signo = calcularSigno(dia, mes, ano);
+
+                            if (rbMasc.isSelected()) {
+                                lbResumo.setText(fazerTratamento(nome) + " " + nome + " nascido no dia de " + dia + "/" + mes + "/" + ano);
+                                lbResumo1.setText("É do signo de " + signo + " tem " + d.format((calcularIdade(dia, mes, ano))) + " anos");
+                                lbResumo2.setText("Seu número da sorte é: " + entregarNumeroSorte(100));
+                                lbResumo3.setText("Sua cor da sorte é: " + cor);
+                            } else {
+                                lbResumo.setText(fazerTratamento(nome) + " " + nome + " nascida no dia de " + dia + "/" + mes + "/" + ano);
+                                lbResumo1.setText("É do signo de " + signo + " tem " + d.format((calcularIdade(dia, mes, ano))) + " anos");
+                                lbResumo2.setText("Seu número da sorte é: " + entregarNumeroSorte(100));
+                                lbResumo3.setText("Sua cor da sorte é: " + cor);
+                            }
+
+                            // Definindo os ícones de cada signo.
+                            lbSagitario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif sagita resized.gif")));
+                            lbAries.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/gif Aries.gif")));
+                            lbTouro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif touro.gif")));
+                            lbCancer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/gif Cancer.gif")));
+                            lbGemeos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif gemeos.gif")));
+                            lbLeao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif leo.gif")));
+                            lbVirgem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/gif Virgo.gif")));
+                            lbLibra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif libra.gif")));
+                            lbEscorpiao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Scorpio.gif")));
+                            lbCapricornio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Capricornio.gif")));
+                            lbAquario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Aquario.gif")));
+                            lbPeixes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Peixes.gif")));
+                            lbAries.setVisible(false);
+                            lbTouro.setVisible(false);
+                            lbGemeos.setVisible(false);
+                            lbCancer.setVisible(false);
+                            lbLeao.setVisible(false);
+                            lbVirgem.setVisible(false);
+                            lbLibra.setVisible(false);
+                            lbEscorpiao.setVisible(false);
+                            lbSagitario.setVisible(false);
+                            lbCapricornio.setVisible(false);
+                            lbAquario.setVisible(false);
+                            lbPeixes.setVisible(false);
+
+                            if (signo.equals("Aries")) {
+                                lbAries.setVisible(true);
+                            } else if (signo.equals("Touro")) {
+                                lbTouro.setVisible(true);
+                            } else if (signo.equals("Gêmeos")) {
+                                lbGemeos.setVisible(true);
+                            } else if (signo.equals("Câncer")) {
+                                lbCancer.setVisible(true);
+                            } else if (signo.equals("Leão")) {
+                                lbLeao.setVisible(true);
+                            } else if (signo.equals("Virgem")) {
+                                lbVirgem.setVisible(true);
+                            } else if (signo.equals("Libra")) {
+                                lbLibra.setVisible(true);
+                            } else if (signo.equals("Escorpião")) {
+                                lbEscorpiao.setVisible(true);
+                            } else if (signo.equals("Sagitário")) {
+                                lbSagitario.setVisible(true);
+                            } else if (signo.equals("Capricórnio")) {
+                                lbCapricornio.setVisible(true);
+                            } else if (signo.equals("Aquário")) {
+                                lbAquario.setVisible(true);
+                            } else if (signo.equals("Peixes")) {
+                                lbPeixes.setVisible(true);
+                            }
+                        }
+                    } else if (mes == 2 && dia >= 1 && dia <= 29) {
+                        nome = txtNome.getText();
+                        if (nome.length() < 8 || nome.equals("Insira seu nome e sobrenome")) {
+                            JOptionPane.showMessageDialog(null, "Legal, se seu nome fosse verdadeiro.");
+                        } else {
+                            cor = declararCorDaSorte(cor);
+                            signo = calcularSigno(dia, mes, ano);
+
+                            if (rbMasc.isSelected()) {
+                                lbResumo.setText(fazerTratamento(nome) + " " + nome + " nascido no dia de " + dia + "/" + mes + "/" + ano);
+                                lbResumo1.setText("É do signo de " + signo + " tem " + d.format((calcularIdade(dia, mes, ano))) + " anos");
+                                lbResumo2.setText("Seu número da sorte é: " + entregarNumeroSorte(100));
+                                lbResumo3.setText("Sua cor da sorte é: " + cor);
+                            } else {
+                                lbResumo.setText(fazerTratamento(nome) + " " + nome + " nascida no dia de " + dia + "/" + mes + "/" + ano);
+                                lbResumo1.setText("É do signo de " + signo + " tem " + d.format((calcularIdade(dia, mes, ano))) + " anos");
+                                lbResumo2.setText("Seu número da sorte é: " + entregarNumeroSorte(100));
+                                lbResumo3.setText("Sua cor da sorte é: " + cor);
+                            }
+
+                            // Definindo os ícones de cada signo.
+                            lbSagitario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif sagita resized.gif")));
+                            lbAries.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/gif Aries.gif")));
+                            lbTouro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif touro.gif")));
+                            lbCancer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/gif Cancer.gif")));
+                            lbGemeos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif gemeos.gif")));
+                            lbLeao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif leo.gif")));
+                            lbVirgem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/gif Virgo.gif")));
+                            lbLibra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif libra.gif")));
+                            lbEscorpiao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Scorpio.gif")));
+                            lbCapricornio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Capricornio.gif")));
+                            lbAquario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Aquario.gif")));
+                            lbPeixes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ulbra/br/view/Gif Peixes.gif")));
+                            lbAries.setVisible(false);
+                            lbTouro.setVisible(false);
+                            lbGemeos.setVisible(false);
+                            lbCancer.setVisible(false);
+                            lbLeao.setVisible(false);
+                            lbVirgem.setVisible(false);
+                            lbLibra.setVisible(false);
+                            lbEscorpiao.setVisible(false);
+                            lbSagitario.setVisible(false);
+                            lbCapricornio.setVisible(false);
+                            lbAquario.setVisible(false);
+                            lbPeixes.setVisible(false);
+
+                            if (signo.equals("Aries")) {
+                                lbAries.setVisible(true);
+                            } else if (signo.equals("Touro")) {
+                                lbTouro.setVisible(true);
+                            } else if (signo.equals("Gêmeos")) {
+                                lbGemeos.setVisible(true);
+                            } else if (signo.equals("Câncer")) {
+                                lbCancer.setVisible(true);
+                            } else if (signo.equals("Leão")) {
+                                lbLeao.setVisible(true);
+                            } else if (signo.equals("Virgem")) {
+                                lbVirgem.setVisible(true);
+                            } else if (signo.equals("Libra")) {
+                                lbLibra.setVisible(true);
+                            } else if (signo.equals("Escorpião")) {
+                                lbEscorpiao.setVisible(true);
+                            } else if (signo.equals("Sagitário")) {
+                                lbSagitario.setVisible(true);
+                            } else if (signo.equals("Capricórnio")) {
+                                lbCapricornio.setVisible(true);
+                            } else if (signo.equals("Aquário")) {
+                                lbAquario.setVisible(true);
+                            } else if (signo.equals("Peixes")) {
+                                lbPeixes.setVisible(true);
+                            }
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "E essa data ai engraçadinho?");
+                    }
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Po, data legal, marquei de rir daqui 1 semana.");
@@ -710,7 +717,7 @@ public class SignosGabrielEGustavoNoite extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeFocusLost
 
     private void txtNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyTyped
-        String caracteres ="1234567890!@#$%¨&*()-_=+§{[ª~^|}]'º:;?/°,.\\\"";
+        String caracteres = "1234567890!@#$%¨&*()-_=+§{[ª~^|}]'º:;?/°,.\\\"";
         if (caracteres.contains(evt.getKeyChar() + "")) {
             JOptionPane.showMessageDialog(null, "Caracteres especiais não são permitidos.");
             JOptionPane.showMessageDialog(null, "Números também não, então pfv só letras tá? ;)");
